@@ -1,0 +1,73 @@
+plugins {
+	//	컴파일, 테스트, 패키징, 실행 등 자바 프로젝트 빌드에 필요한 태스크 제공
+	id 'java'
+
+	// 스프링부트의 의존성 관리 및 패키징, 자동설정, 실행 관련 태스크 제공
+	id 'org.springframework.boot' version '3.3.1'
+
+	// 스프링 의존성 관리 기능 제공
+	id 'io.spring.dependency-management' version '1.1.5'
+
+	// 다양한 언어를 위한 코드 포매터와 관련 태스크 제공(예 spotlessApply)
+	id 'com.diffplug.spotless' version '6.25.0'
+}
+
+group = 'com.asdf'
+version = '0.0.1-SNAPSHOT'
+description = 'Demo project for Spring Boot'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	//Swagger UI를 사용하기 위한 의존성 추가
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
+
+	//Lombok 라이브러리 컴파일 시에만 사용하도록 설정
+	//getter, setter 등을 자동으로 생성해줌
+	compileOnly 'org.projectlombok:lombok'
+
+	//Lombok이 제공하는 기능을 사용하기 위한 애노테이션 프로세서를 추가
+	annotationProcessor 'org.projectlombok:lombok'
+
+	//JUnit5를 이용한 테스트를 위한 의존성을 추가
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	//JUnit5 테스트를 실행하기 위한 런타임 의존성을 추가
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+
+	//테스트 실행 시 상세한 결과 출력 활성화
+	testLogging {
+		// 테스트 이벤트 중 어떤 것을 로그로 출력할지 결정
+		events "passed", "skipped", "failed"
+		// 테스트 케이스 별 결과를 항상 출력하도록 설정
+		outputs.upTodateWhen{ false }
+		// Java Agent 경고 메시지 억제
+		jvmArgs '-XX:+EnableDynamicAgentLoading'
+	}
+}
+
+// Spotless 플러그인을 사용하여 코드 양식을 자동으로 맞춤
+spotless {
+	// Java 파일에 대한 포맷팅 설정 추가
+	java {
+		// Google Java Format 적용
+		googleJavaFormat('1.22.0').aosp().reflowLongStrings()
+	}
+}
+
+// build 할 때 spotlessApply를 실행하여 자동으로 코드의 양식을 맞춤
+build.dependsOn 'spotlessApply'
