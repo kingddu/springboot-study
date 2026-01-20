@@ -54,7 +54,7 @@ tasks.named('test') {
 		// 테스트 이벤트 중 어떤 것을 로그로 출력할지 결정
 		events "passed", "skipped", "failed"
 		// 테스트 케이스 별 결과를 항상 출력하도록 설정
-		outputs.upTodateWhen{ false }
+		outputs.upToDateWhen {false}
 		// Java Agent 경고 메시지 억제
 		jvmArgs '-XX:+EnableDynamicAgentLoading'
 	}

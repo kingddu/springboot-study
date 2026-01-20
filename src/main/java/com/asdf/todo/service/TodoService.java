@@ -1,17 +1,17 @@
 package com.asdf.todo.service;
 
-import java.util.List;
 import com.asdf.todo.model.Todo;
 import com.asdf.todo.repository.TodoInMemoryRepository;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TodoService{
+public class TodoService {
     private final TodoInMemoryRepository todoRepository;
 
     @Autowired
-    public TodoService(TodoInMemoryRepository todoRepository){
+    public TodoService(TodoInMemoryRepository todoRepository) {
         this.todoRepository = todoRepository;
     }
 
@@ -35,5 +35,4 @@ public class TodoService{
     public void delete(Long id) {
         todoRepository.deleteById(id);
     }
-
 }
