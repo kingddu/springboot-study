@@ -1,10 +1,16 @@
 package com.asdf.todo.repository;
 
+<<<<<<< HEAD
 import com.asdf.todo.model.Todo;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+=======
+import com.asdf.todo.entity.Todo;
+import org.springframework.stereotype.Repository;
+
+>>>>>>> 4f59061 (다시 ubuntu로 복귀)
 import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.stereotype.Repository;
 
